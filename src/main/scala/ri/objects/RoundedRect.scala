@@ -3,7 +3,6 @@ package ri.objects
 import math._
 
 import ri._
-import Ri._
 
 import ObjectUtils._
 
@@ -12,6 +11,9 @@ import ObjectUtils._
  * The rounded rectangle consiste of 26 primitives (6 bilinear patches, 8 spheres, and 12 cylinders).
  */
 object RoundedRect {
+  
+  val riFunctions = new Ri()
+  import riFunctions._  
   
   case class Params(lx: Double, ly: Double, lz: Double, radius: Double) {
     require(radius > 0)

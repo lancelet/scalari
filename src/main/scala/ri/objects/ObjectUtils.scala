@@ -1,9 +1,11 @@
 package ri.objects
 
 import ri._
-import Ri._
 
 object ObjectUtils {
+  
+  val riFunctions = new Ri()
+  import riFunctions._  
   
   /** Automatically wraps some calls in a motion block if necessary.
    * This method takes a vararg array of parameters (ps).  If there is more than one element in ps, then the method

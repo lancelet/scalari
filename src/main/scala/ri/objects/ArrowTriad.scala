@@ -3,12 +3,14 @@ package ri.objects
 import math._
 
 import ri._
-import Ri._
 
 import ObjectUtils._
 
 /** A triad of arrows (3 mutually-perpendicular arrows along x, y and z). */
 object ArrowTriad {
+  
+  val riFunctions = new Ri()
+  import riFunctions._
   
   case class Params(sizeX: Double = 1, sizeY: Double = 1, sizeZ: Double = 1, handedness: String = "R", 
     headLength: Double = 0.25) {

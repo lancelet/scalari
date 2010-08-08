@@ -3,12 +3,14 @@ package ri.objects
 import math._
 
 import ri._
-import Ri._
 
 import ObjectUtils._
 
 /** A directed rounded arrow. */
 object DirectedArrow {
+  
+  val riFunctions = new Ri()
+  import riFunctions._  
   
   case class Params(x1: Double, y1: Double, z1: Double, x2: Double, y2: Double, z2: Double, 
     headLength: Double, tailRadius: Double) 

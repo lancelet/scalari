@@ -1,12 +1,15 @@
 package ri.examples
 
 import ri._
-import Ri._
 
 object CSG {
   
   // shows how to pass a RIB context
   def createLights(context: Context): Unit = {
+    
+    val riFunctions = new Ri()
+    import riFunctions._
+    
     Resume(context) {
       TransformBlock {
         Translate(0, 30, -30)
@@ -24,6 +27,10 @@ object CSG {
   }
   
   def main(args: Array[String]) {
+    
+    val riFunctions = new Ri()
+    import riFunctions._
+    
     Begin("aqsis") {
       
       Option("limits", "bucketsize", Seq(32, 32))

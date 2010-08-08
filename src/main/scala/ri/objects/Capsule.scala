@@ -1,13 +1,15 @@
 package ri.objects
 
 import ri._
-import Ri._
 
 import ObjectUtils._
 
 /** A capsule.
  */
 object Capsule {
+  
+  val riFunctions = new Ri()
+  import riFunctions._  
   
   case class Params(radius: Double, height: Double) {
     require(height >= radius)
