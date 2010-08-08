@@ -111,9 +111,8 @@ trait RibMotionCreator extends RibBlockCreator {
 
 trait RibDeclare {
   self: RibContext =>
-  /*
-  def declare(): Unit = throwContextException()
-  */  
+  override def declare(name: String, declaration: String): Unit = wln("Declare \"%s\" \"%s\"" 
+    format(name, declaration))
 }
 
 trait RibOptions {

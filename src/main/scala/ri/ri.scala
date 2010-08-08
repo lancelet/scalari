@@ -130,7 +130,7 @@ trait Context {
   def motionEnd(): Unit = throwContextException()
   
   // Options
-  def declare(): Unit = throwContextException()
+  def declare(name: String, declaration: String): Unit = throwContextException()
   def format(xres: Int, yres: Int, aspect: Double): Unit = throwContextException()
   def frameAspectRatio(aspect: Double): Unit = throwContextException()
   def screenWindow(left: Double, right: Double, bottom: Double, top: Double): Unit = throwContextException()
@@ -329,7 +329,7 @@ class Ri {
   }
   
   // Options
-  def Declare(): Unit = { }
+  def Declare(name: String, declaration: String): Unit = ctx.value foreach(_.declare(name, declaration))
   def Format(xres: Int, yres: Int, aspect: Double): Unit = ctx.value foreach(_.format(xres, yres, aspect))
   def FrameAspectRatio(aspect: Double): Unit = ctx.value foreach(_.frameAspectRatio(aspect))
   def ScreenWindow(left: Double, right: Double, bottom: Double, top: Double): Unit =
