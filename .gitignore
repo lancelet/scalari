@@ -1,0 +1,3 @@
+# Files that GIT should ignore
+project/boot/
+target/
