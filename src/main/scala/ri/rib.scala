@@ -64,50 +64,49 @@ trait RibFrameCreator extends RibBlockCreator {
   self: RibContext =>
   override def frameBegin(frame: Int) = startBlock("Frame", frame.toString)
   override def frameEnd() = endBlock("Frame")
-  override def getFrameContext(): RibFrameContext = new RibFrameContext(writer)
+  override def getFrameContext(): RibFrameContext = new RibFrameContext(writer, handles)
 }
 
 trait RibWorldCreator extends RibBlockCreator {
   self: RibContext =>
   override def worldBegin() = startBlock("World")
   override def worldEnd() = endBlock("World")
-  override def getWorldContext(): RibWorldContext = new RibWorldContext(writer)
+  override def getWorldContext(): RibWorldContext = new RibWorldContext(writer, handles)
 }
 
 trait RibAttributeCreator extends RibBlockCreator {
   self: RibContext =>
   override def attributeBegin() = startBlock("Attribute")
   override def attributeEnd() = endBlock("Attribute")
-  override def getAttributeContext(): RibAttributeContext = new RibAttributeContext(writer)
+  override def getAttributeContext(): RibAttributeContext = new RibAttributeContext(writer, handles)
 }
 
 trait RibTransformCreator extends RibBlockCreator {
   self: RibContext =>
   override def transformBegin() = startBlock("Transform")
   override def transformEnd() = endBlock("Transform")
-  override def getTransformContext(): RibTransformContext = new RibTransformContext(writer)
+  override def getTransformContext(): RibTransformContext = new RibTransformContext(writer, handles)
 }
 
 trait RibSolidCreator extends RibBlockCreator {
   self: RibContext =>
   override def solidBegin(op: SolidOp) = startBlock("Solid", "\"%s\"" format(op.name))
   override def solidEnd() = endBlock("Solid")
-  override def getSolidContext(): RibSolidContext = new RibSolidContext(writer)
+  override def getSolidContext(): RibSolidContext = new RibSolidContext(writer, handles)
 }
 
 trait RibObjectCreator extends RibBlockCreator {
   self: RibContext =>
-  private val handle: RibObjectHandle = RibObjectHandle(nextObjectNumber())
-  override def objectBegin() = startBlock("Object", "%s" format(handle.id))
+  override def objectBegin() = startBlock("Object", "%s" format(nextObjectNumber()))
   override def objectEnd() = endBlock("Object")
-  override def getObjectContext(): RibObjectContext = new RibObjectContext(writer, handle)
+  override def getObjectContext(): RibObjectContext = new RibObjectContext(writer, handles)
 }
 
 trait RibMotionCreator extends RibBlockCreator {
   self: RibContext =>
   override def motionBegin(times: Seq[Double]) = startBlock("Motion", "%s" format(seqToRib(times)))
   override def motionEnd() = endBlock("Motion")
-  override def getMotionContext(): RibMotionContext = new RibMotionContext(writer)
+  override def getMotionContext(): RibMotionContext = new RibMotionContext(writer, handles)
 }
 
 trait RibDeclare {
@@ -313,7 +312,7 @@ trait RibMapMaking {
 }
 
 
-class RibTopContext(writer: RibWriter) extends RibContext(writer)
+class RibTopContext(writer: RibWriter) extends RibContext(writer, new ContextHandles)
   with RibDeclare
   with RibFrameCreator
   with RibWorldCreator
@@ -330,7 +329,7 @@ class RibTopContext(writer: RibWriter) extends RibContext(writer)
   wln("version 3.03")
 }
 
-class RibFrameContext(writer: RibWriter) extends RibContext(writer)
+class RibFrameContext(writer: RibWriter, ch: ContextHandles) extends RibContext(writer, ch)
   with RibDeclare
   with RibWorldCreator
   with RibAttributeCreator
@@ -346,7 +345,7 @@ class RibFrameContext(writer: RibWriter) extends RibContext(writer)
   
 }
 
-class RibWorldContext(writer: RibWriter) extends RibContext(writer)
+class RibWorldContext(writer: RibWriter, ch: ContextHandles) extends RibContext(writer, ch)
   with RibDeclare
   with RibAttributeCreator
   with RibTransformCreator
@@ -363,7 +362,7 @@ class RibWorldContext(writer: RibWriter) extends RibContext(writer)
   
 }
 
-class RibAttributeContext(writer: RibWriter) extends RibContext(writer)
+class RibAttributeContext(writer: RibWriter, ch: ContextHandles) extends RibContext(writer, ch)
   with RibDeclare
   with RibAttributeCreator
   with RibTransformCreator
@@ -380,7 +379,7 @@ class RibAttributeContext(writer: RibWriter) extends RibContext(writer)
   
 }
 
-class RibTransformContext(writer: RibWriter) extends RibContext(writer)
+class RibTransformContext(writer: RibWriter, ch: ContextHandles) extends RibContext(writer, ch)
   with RibDeclare
   with RibAttributeCreator
   with RibTransformCreator
@@ -397,7 +396,7 @@ class RibTransformContext(writer: RibWriter) extends RibContext(writer)
   
 }
 
-class RibSolidContext(writer: RibWriter) extends RibContext(writer)
+class RibSolidContext(writer: RibWriter, ch: ContextHandles) extends RibContext(writer, ch)
   with RibDeclare
   with RibAttributeCreator
   with RibTransformCreator
@@ -414,15 +413,15 @@ class RibSolidContext(writer: RibWriter) extends RibContext(writer)
   
 }
 
-class RibObjectContext(writer: RibWriter, handle: RibObjectHandle) extends RibContext(writer) 
+class RibObjectContext(writer: RibWriter, ch: ContextHandles) extends RibContext(writer, ch)
   with RibDeclare
   with RibGeometry
   with RibGeneralObjects
 {
-  override def getObjectHandle(): ObjectHandle = handle
+  override def getObjectHandle(): ObjectHandle = new RibObjectHandle(currentObjectNumber())
 }
 
-class RibMotionContext(writer: RibWriter) extends RibContext(writer)
+class RibMotionContext(writer: RibWriter, ch: ContextHandles) extends RibContext(writer, ch)
   with RibDeclare
   with RibLights
   with RibAttributes
@@ -432,8 +431,29 @@ class RibMotionContext(writer: RibWriter) extends RibContext(writer)
   
 }
 
+
+/* Tracks light and object handles within Contexts. */
+protected class ContextHandles {
+  /** Tracks Ints used for handle identifiers. */
+  private class IntegerHandleTracker {
+    private var handle: Int = 0
+    def currentHandle(): Int = handle
+    def nextHandle(): Int = {
+      handle += 1
+      handle
+    }
+  }
+
+  private val lightTracker = new IntegerHandleTracker
+  private val objectTracker = new IntegerHandleTracker
+  def nextLightNumber(): Int = lightTracker.nextHandle()
+  def nextObjectNumber(): Int = objectTracker.nextHandle()
+  def currentObjectNumber(): Int = objectTracker.currentHandle()
+}
+
+
 /** Context for RIB file writing. */
-class RibContext(val writer: RibWriter) extends Context {
+class RibContext(val writer: RibWriter, val handles: ContextHandles) extends Context {
   def close(): Unit = writer.close()
   protected def incrementIndent(): Unit = writer.incrementIndent()
   protected def decrementIndent(): Unit = writer.decrementIndent()
@@ -468,16 +488,7 @@ class RibContext(val writer: RibWriter) extends Context {
   }
   protected def boolToRib(value: Boolean): String = Map[Boolean, String](true->"1", false->"0")(value)
   
-  // TODO: Move the stuff below to a new location, which is passed from one context to another
-  private var currentLightNumber: Int = 0
-  protected def nextLightNumber(): Int = {
-    currentLightNumber += 1
-    currentLightNumber
-  }
-  // TODO: Move the stuff below to a new location, which is passed from one context to another
-  private var currentObjectNumber: Int = 0
-  protected def nextObjectNumber(): Int = {
-    currentObjectNumber += 1
-    currentObjectNumber
-  }
+  def nextLightNumber(): Int = handles.nextLightNumber()
+  def nextObjectNumber(): Int = handles.nextObjectNumber()
+  def currentObjectNumber(): Int = handles.currentObjectNumber()
 }
