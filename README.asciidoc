@@ -33,6 +33,7 @@ This will create a new directory called `scalari`.  Next, use http://code.google
 
 http://code.google.com/p/simple-build-tool/[sbt] will launch, and collect everything it needs for the project.  Within the http://code.google.com/p/simple-build-tool/[sbt] prompt system, you can then run:
 
+  > update
   > compile
   > run
 
