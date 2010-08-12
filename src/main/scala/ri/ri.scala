@@ -1,14 +1,8 @@
 package ri
 
+import ri.math._
 import scala.util.DynamicVariable
 import scala.collection.{Map, Seq}
-
-case class Matrix(
-  e11: Double, e12: Double, e13: Double, e14: Double,
-  e21: Double, e22: Double, e23: Double, e24: Double,
-  e31: Double, e32: Double, e33: Double, e34: Double,
-  e41: Double, e42: Double, e43: Double, e44: Double
-)
 
 case class BoundBox(
   xmin: Double, xmax: Double, ymin: Double, ymax: Double, zmin: Double, zmax: Double
@@ -251,6 +245,7 @@ class Ri {
     val writer: RibWriter = fileOrRenderer match {
       case "aqsis" => new AqsisRibWriter()
       case "pixie" => new PixieRibWriter()
+      case "" => new DefaultRibWriter
       case x => FileRibWriter(x)
     }
     val context: Context = new RibTopContext(writer)

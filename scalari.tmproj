@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>src/main/scala/ri/ri.scala</string>
+	<string>src/main/scala/ri/ssg/rman/RmanRenderer.scala</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -18,136 +18,46 @@
 		</dict>
 	</array>
 	<key>fileHierarchyDrawerWidth</key>
-	<integer>294</integer>
+	<integer>350</integer>
 	<key>metaData</key>
 	<dict>
-		<key>src/main/scala/ri/aqsis.scala</key>
+		<key>src/main/scala/ri/ssg/MightVary.scala</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>30</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>25</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>5</integer>
-		</dict>
-		<key>src/main/scala/ri/examples/csg.scala</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>98</integer>
-				<key>line</key>
-				<integer>48</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>43</integer>
-		</dict>
-		<key>src/main/scala/ri/objects/ArrowTriad.scala</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>21</integer>
-				<key>line</key>
-				<integer>77</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>7</integer>
-		</dict>
-		<key>src/main/scala/ri/objects/DirectedArrow.scala</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>16</integer>
-				<key>line</key>
-				<integer>23</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>7</integer>
-		</dict>
-		<key>src/main/scala/ri/objects/ObjectUtils.scala</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>17</integer>
-				<key>line</key>
-				<integer>24</integer>
+				<integer>14</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
-		<key>src/main/scala/ri/objects/RoundedArrow.scala</key>
+		<key>src/main/scala/ri/ssg/rman/RmanRenderer.scala</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>2</integer>
+				<integer>19</integer>
 				<key>line</key>
-				<integer>26</integer>
+				<integer>49</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
-		</dict>
-		<key>src/main/scala/ri/objects/RoundedRect.scala</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>2</integer>
-				<key>line</key>
-				<integer>264</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>79</integer>
-		</dict>
-		<key>src/main/scala/ri/ri.scala</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>48</integer>
-				<key>line</key>
-				<integer>59</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>35</integer>
 		</dict>
 	</dict>
 	<key>openDocuments</key>
 	<array>
-		<string>src/main/scala/ri/ri.scala</string>
-		<string>src/main/scala/ri/examples/csg.scala</string>
-		<string>src/main/scala/ri/objects/ObjectUtils.scala</string>
-		<string>src/main/scala/ri/objects/ArrowTriad.scala</string>
-		<string>src/main/scala/ri/objects/DirectedArrow.scala</string>
-		<string>src/main/scala/ri/objects/RoundedArrow.scala</string>
-		<string>src/main/scala/ri/objects/RoundedRect.scala</string>
-		<string>src/main/scala/ri/aqsis.scala</string>
+		<string>src/main/scala/ri/ssg/MightVary.scala</string>
+		<string>src/main/scala/ri/ssg/rman/RmanRenderer.scala</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{137, 6}, {1104, 1005}}</string>
+	<string>{{12, 17}, {1104, 1005}}</string>
 </dict>
 </plist>

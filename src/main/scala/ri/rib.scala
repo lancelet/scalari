@@ -3,6 +3,7 @@ package ri
 import java.io.{File, FileWriter, Writer}
 import scala.collection.mutable.StringBuilder
 import Context._
+import ri.math._
 
 /** Writer for RIB files. */
 trait RibWriter {
@@ -458,12 +459,15 @@ class RibContext(val writer: RibWriter, val handles: ContextHandles) extends Con
   protected def decrementIndent(): Unit = writer.decrementIndent()
   protected def wln(str: String): Unit = writer.writeln(str)
   protected def seqToRib[A](seq: Seq[A]): String = seq.mkString("[ ", " ", " ]")
-  protected def matrixToRib(m: Matrix): String = seqToRib(Seq(
-    m.e11, m.e12, m.e13, m.e14,
-    m.e21, m.e22, m.e23, m.e24,
-    m.e31, m.e32, m.e33, m.e34,
-    m.e41, m.e42, m.e43, m.e44
-  ))
+  protected def matrixToRib(m: Matrix): String = {
+    require(m.cols == 4 && m.rows == 4)
+    seqToRib(Seq(
+      m(0,0), m(0,1), m(0,2), m(0,3),
+      m(1,0), m(1,1), m(1,2), m(1,3),
+      m(2,0), m(2,1), m(2,2), m(2,3),
+      m(3,0), m(3,1), m(3,2), m(3,3)
+    ))
+  }
   protected def basisToRib(b: Basis): String = {
     if (b.name.isDefined) {
       "\"%s\"" format b.name.get
