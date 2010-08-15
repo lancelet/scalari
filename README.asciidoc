@@ -22,9 +22,9 @@ You will also require http://www.scala-lang.org/[Scala 2.8.0] and the http://cod
 
 == Installation ==
 
-Check out the project from GitHub:
+Check out the project from GitHub (this command uses the Git Read-Only repository):
 
-  $ git clone git@github.com:lancelet/scalari.git
+  $ git clone git://github.com/lancelet/scalari.git
 
 This will create a new directory called `scalari`.  Next, use http://code.google.com/p/simple-build-tool/[sbt] to compile the project:
 
