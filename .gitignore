@@ -1,4 +1,5 @@
 # Files that GIT should ignore
+*~
 project/boot/
 target/
 lib_managed/

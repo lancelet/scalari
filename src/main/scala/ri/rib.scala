@@ -3,7 +3,7 @@ package ri
 import java.io.{File, FileWriter, Writer}
 import scala.collection.mutable.StringBuilder
 import Context._
-import ri.math._
+import simplex3d.math.double.Mat4
 
 /** Writer for RIB files. */
 trait RibWriter {
@@ -213,8 +213,8 @@ trait RibAttributes {
 trait RibTransformations {
   self: RibContext =>
   override def identity() = wln("Identity")
-  override def transform(transform: Matrix): Unit = wln("Transform %s" format(matrixToRib(transform)))
-  override def concatTransform(transform: Matrix): Unit = wln("ConcatTransform %s" format(matrixToRib(transform)))
+  override def transform(transform: Mat4): Unit = wln("Transform %s" format(matrixToRib(transform)))
+  override def concatTransform(transform: Mat4): Unit = wln("ConcatTransform %s" format(matrixToRib(transform)))
   override def perspective(fov: Double): Unit = wln("Perspective %s" format(fov))
   override def translate(dx: Double, dy: Double, dz: Double): Unit = wln("Translate %s %s %s" format (dx, dy, dz))
   override def rotate(angle: Double, dx: Double, dy: Double, dz: Double): Unit = 
@@ -459,8 +459,8 @@ class RibContext(val writer: RibWriter, val handles: ContextHandles) extends Con
   protected def decrementIndent(): Unit = writer.decrementIndent()
   protected def wln(str: String): Unit = writer.writeln(str)
   protected def seqToRib[A](seq: Seq[A]): String = seq.mkString("[ ", " ", " ]")
-  protected def matrixToRib(m: Matrix): String = {
-    require(m.cols == 4 && m.rows == 4)
+  protected def matrixToRib(m: Mat4): String = {
+    // require(m.cols == 4 && m.rows == 4) : Not required: Simplex3D Mat4 is always a 4x4 matrix
     seqToRib(Seq(
       m(0,0), m(0,1), m(0,2), m(0,3),
       m(1,0), m(1,1), m(1,2), m(1,3),

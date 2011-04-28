@@ -1,6 +1,6 @@
 package ri
 
-import ri.math._
+import simplex3d.math.double.Mat4
 import scala.util.DynamicVariable
 import scala.collection.{Map, Seq}
 
@@ -10,15 +10,15 @@ case class BoundBox(
 
 trait Basis {
   val name: Option[String]
-  val matrix: Option[Matrix]
+  val matrix: Option[Mat4]
 }
 class NamedBasis(nme: String) extends Basis {
   val name: Option[String] = Some(nme)
-  val matrix: Option[Matrix] = None
+  val matrix: Option[Mat4] = None
 }
-case class MatrixBasis(mtrx: Matrix) extends Basis {
+case class MatrixBasis(mtrx: Mat4) extends Basis {
   val name: Option[String] = None
-  val matrix: Option[Matrix] = Some(mtrx)
+  val matrix: Option[Mat4] = Some(mtrx)
 }
 object BezierBasis extends NamedBasis("bezier")
 object BSplineBasis extends NamedBasis("b-spline")
@@ -179,8 +179,8 @@ trait Context {
 
   // Transformations
   def identity(): Unit = throwContextException()
-  def transform(transform: Matrix): Unit = throwContextException()
-  def concatTransform(transform: Matrix): Unit = throwContextException()
+  def transform(transform: Mat4): Unit = throwContextException()
+  def concatTransform(transform: Mat4): Unit = throwContextException()
   def perspective(fov: Double): Unit = throwContextException()
   def translate(dx: Double, dy: Double, dz: Double): Unit = throwContextException()
   def rotate(angle: Double, dx: Double, dy: Double, dz: Double): Unit = throwContextException()
@@ -415,8 +415,8 @@ class Ri {
     
   // Transformations
   def Identity(): Unit = ctx.value foreach (_.identity())
-  def Transform(transform: Matrix): Unit = ctx.value foreach (_.transform(transform))
-  def ConcatTransform(transform: Matrix): Unit = ctx.value foreach (_.concatTransform(transform))
+  def Transform(transform: Mat4): Unit = ctx.value foreach (_.transform(transform))
+  def ConcatTransform(transform: Mat4): Unit = ctx.value foreach (_.concatTransform(transform))
   def Perspective(fov: Double): Unit = ctx.value foreach (_.perspective(fov))
   def Translate(dx: Double, dy: Double, dz: Double): Unit = ctx.value foreach (_.translate(dx, dy, dz))
   def Rotate(angle: Double, dx: Double, dy: Double, dz: Double): Unit = ctx.value foreach (_.rotate(angle, dx, dy, dz))
