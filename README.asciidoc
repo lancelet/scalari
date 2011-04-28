@@ -1,9 +1,10 @@
 = ScalaRi - RenderMan Bindings for Scala =
 
-== NOTE: Branch dev_scala_2.9 ==
+== NOTE: Branch dev_ssg ==
 
-This branch of ScalaRi is for testing the 2.9 release candidates of Scala.  Please switch to the master branch if
-you would like to use the 2.8.1.final version of Scala.
+This branch of ScalaRi is for testing the ssg (Simple SceneGraph) library of
+ScalaRi, which is still very much a work-in-progress.  Please switch to the
+master branch for a marginally more stable version.
 
 == Introduction ==
 
