@@ -1,5 +1,9 @@
 = ScalaRi - RenderMan Bindings for Scala =
 
+== NOTE: Branch dev_scala_2.9 ==
+
+This branch of ScalaRi is for testing the 2.9 release candidates of Scala.  Please switch to the master branch if
+you would like to use the 2.8.1.final version of Scala.
 
 == Introduction ==
 
@@ -17,7 +21,7 @@ To create images with ScalaRi, you will need a RenderMan compatible renderer.  W
 
 Depending upon the range of effects you wish to utilise, one or both of these renderers may be of use to you.  They both have tradeoffs, so it is worth thoroughly investigating them.  You can still create RIB files without a renderer, but the renderer is required to turn those text files into images.
 
-You will also require http://www.scala-lang.org/[Scala 2.8.1.final] and the http://code.google.com/p/simple-build-tool/[Simple Build Tool] for Scala.
+You will also require http://www.scala-lang.org/[Scala 2.9.0.RC2] and the http://code.google.com/p/simple-build-tool/[Simple Build Tool] for Scala.
 
 
 == Installation ==
