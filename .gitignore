@@ -3,3 +3,11 @@
 project/boot/
 target/
 lib_managed/
+project/plugins/project
+project/plugins/target
+project/plugins/lib_managed
+project/plugins/src_managed
+.project
+.classpath
+.scala_dependencies
+.settings
