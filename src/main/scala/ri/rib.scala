@@ -274,8 +274,8 @@ trait RibQuadrics {
 trait RibCurves {
   self: RibContext =>
   override def curves(cType: PatchType, nCurves: Int, nVertices: Seq[Int], wrap: PatchWrap, params: PMap): Unit =
-    wln("Curves \"%s\" %s %s \"%s\"%s" format(
-      cType, nCurves, seqToRib(nVertices), wrap, pMapToRib(params)
+    wln("Curves \"%s\" %s \"%s\"%s" format(
+      cType.name, seqToRib(nVertices), wrap.name, pMapToRib(params)
     ))
 }
 
