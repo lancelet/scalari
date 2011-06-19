@@ -271,7 +271,19 @@ trait RibQuadrics {
     wln("Torus [ %s %s %s %s %s ]%s" format(majorRadius, minorRadius, phiMin, phiMax, thetaMax, pMapToRib(params)))
 }
 
-trait RibGeometry extends RibPolygons with RibPatches with RibQuadrics {
+trait RibCurves {
+  self: RibContext =>
+  override def curves(cType: PatchType, nCurves: Int, nVertices: Seq[Int], wrap: PatchWrap, params: PMap): Unit =
+    wln("Curves \"%s\" %s %s \"%s\"%s" format(
+      cType, nCurves, seqToRib(nVertices), wrap, pMapToRib(params)
+    ))
+}
+
+trait RibGeometry 
+extends RibPolygons 
+with RibPatches 
+with RibQuadrics 
+with RibCurves {
   self: RibContext =>
 }
 

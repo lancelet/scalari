@@ -217,6 +217,10 @@ trait Context {
   def torus(majorRadius: Double, minorRadius: Double, phiMin: Double, phiMax: Double, thetaMax: Double, 
     params: PMap): Unit = throwContextException()
 
+  // Curves
+  def curves(cType: PatchType, nCurves: Int, nVertices: Seq[Int], wrap: PatchWrap, params: PMap): Unit =
+    throwContextException()
+    
   // General objects
   def objectInstance(handle: ObjectHandle): Unit = throwContextException()
   def procedural(name: String, args: Seq[Any], bound: BoundBox): Unit = throwContextException()
@@ -488,6 +492,12 @@ class Ri {
     params: Any*): Unit =
     ctx.value foreach (_.torus(majorRadius, minorRadius, phiMin, phiMax, thetaMax, extractParams(params: _*)))
 
+  // Curves
+  def Curves(cType: PatchType, nCurves: Int, nVertices: Seq[Int], wrap: PatchWrap, params: PMap): Unit =
+    ctx.value foreach (_.curves(cType, nCurves, nVertices, wrap, params))
+  def Curves(cType: PatchType, nCurves: Int, nVertices: Seq[Int], wrap: PatchWrap, params: Any*): Unit =
+    ctx.value foreach (_.curves(cType, nCurves, nVertices, wrap, extractParams(params: _*)))
+  
   // General objects
   def ObjectInstance(handle: ObjectHandle): Unit = ctx.value foreach (_.objectInstance(handle))
   def Procedural(name: String, args: Seq[Any], bound: BoundBox): Unit =
