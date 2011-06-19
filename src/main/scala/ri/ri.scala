@@ -70,6 +70,10 @@ sealed case class PatchType(name: String)
 object Bilinear extends PatchType("bilinear")
 object Bicubic extends PatchType("bicubic")
 
+sealed case class CurveType(name: String)
+object Linear extends CurveType("linear")
+object Cubic extends CurveType("cubic")
+
 sealed case class PatchWrap(name: String)
 object Periodic extends PatchWrap("periodic")
 object NonPeriodic extends PatchWrap("nonperiodic")
@@ -218,7 +222,7 @@ trait Context {
     params: PMap): Unit = throwContextException()
 
   // Curves
-  def curves(cType: PatchType, nCurves: Int, nVertices: Seq[Int], wrap: PatchWrap, params: PMap): Unit =
+  def curves(cType: CurveType, nVertices: Seq[Int], wrap: PatchWrap, params: PMap): Unit =
     throwContextException()
     
   // General objects
@@ -493,10 +497,10 @@ class Ri {
     ctx.value foreach (_.torus(majorRadius, minorRadius, phiMin, phiMax, thetaMax, extractParams(params: _*)))
 
   // Curves
-  def Curves(cType: PatchType, nCurves: Int, nVertices: Seq[Int], wrap: PatchWrap, params: PMap): Unit =
-    ctx.value foreach (_.curves(cType, nCurves, nVertices, wrap, params))
-  def Curves(cType: PatchType, nCurves: Int, nVertices: Seq[Int], wrap: PatchWrap, params: Any*): Unit =
-    ctx.value foreach (_.curves(cType, nCurves, nVertices, wrap, extractParams(params: _*)))
+  def Curves(cType: CurveType, nVertices: Seq[Int], wrap: PatchWrap, params: PMap): Unit =
+    ctx.value foreach (_.curves(cType, nVertices, wrap, params))
+  def Curves(cType: CurveType, nVertices: Seq[Int], wrap: PatchWrap, params: Any*): Unit =
+    ctx.value foreach (_.curves(cType, nVertices, wrap, extractParams(params: _*)))
   
   // General objects
   def ObjectInstance(handle: ObjectHandle): Unit = ctx.value foreach (_.objectInstance(handle))
