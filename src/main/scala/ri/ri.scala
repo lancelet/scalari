@@ -229,6 +229,7 @@ trait Context {
   def objectInstance(handle: ObjectHandle): Unit = throwContextException()
   def procedural(name: String, args: Seq[Any], bound: BoundBox): Unit = throwContextException()
   def geometry(name: String, params: PMap): Unit = throwContextException()
+  def readArchive(name: String): Unit = throwContextException()
 
   // Map-making
   def makeTexture(pictureName: String, textureName: String, sWrap: String, tWrap: String, filter: FilterFunc,
@@ -514,6 +515,7 @@ class Ri {
     Procedural("DynamicLoad", Seq("\"%s\"" format(dsoName), "\"%s\"" format(args)), bound)
   def Geometry(name: String, params: PMap): Unit = ctx.value foreach (_.geometry(name, params))
   def Geometry(name: String, params: Any*): Unit = ctx.value foreach (_.geometry(name, extractParams(params: _*)))
+  def ReadArchive(name: String) = ctx.value foreach (_.readArchive(name))
 
   // Map-making
   def MakeTexture(pictureName: String, textureName: String, sWrap: String, tWrap: String, filter: FilterFunc,

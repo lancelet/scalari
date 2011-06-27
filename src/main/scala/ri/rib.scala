@@ -300,6 +300,8 @@ trait RibGeneralObjects {
   override def procedural(name: String, args: Seq[Any], bound: BoundBox): Unit =
     wln("Procedural \"%s\" %s %s" format(name, seqToRib(args), boundToRib(bound)))
   override def geometry(name: String, params: PMap): Unit = wln("Geometry \"%s\"%s" format(name, pMapToRib(params)))
+  override def readArchive(name: String): Unit =
+    wln("ReadArchive \"%s\"" format (name))
 }
 
 trait RibMapMaking {
