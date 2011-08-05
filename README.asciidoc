@@ -16,7 +16,7 @@ To create images with ScalaRi, you will need a RenderMan compatible renderer.  W
 
 Depending upon the range of effects you wish to utilise, one or both of these renderers may be of use to you.  They both have tradeoffs, so it is worth thoroughly investigating them.  You can still create RIB files without a renderer, but the renderer is required to turn those text files into images.
 
-You will also require http://www.scala-lang.org/[Scala 2.9.0.final] and the https://github.com/harrah/xsbt[Simple Build Tool] (version 10) for Scala.
+You will also require http://www.scala-lang.org/[Scala 2.9.1.RC1] and the https://github.com/harrah/xsbt[Simple Build Tool] (version 0.10.1) for Scala.
 
 
 == Installation ==
