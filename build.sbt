@@ -4,7 +4,7 @@ version := "0.4"
 
 organization := "com.github.scalari"
 
-scalaVersion := "2.9.1.RC1"
+scalaVersion := "2.9.1.RC2"
 
 // Test libraries: ScalaTest and ScalaCheck
 libraryDependencies ++= Seq(
