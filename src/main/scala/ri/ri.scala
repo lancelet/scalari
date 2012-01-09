@@ -70,6 +70,10 @@ sealed case class PatchType(name: String)
 object Bilinear extends PatchType("bilinear")
 object Bicubic extends PatchType("bicubic")
 
+sealed case class CurveType(name: String)
+object Linear extends CurveType("linear")
+object Cubic extends CurveType("cubic")
+
 sealed case class PatchWrap(name: String)
 object Periodic extends PatchWrap("periodic")
 object NonPeriodic extends PatchWrap("nonperiodic")
@@ -217,10 +221,15 @@ trait Context {
   def torus(majorRadius: Double, minorRadius: Double, phiMin: Double, phiMax: Double, thetaMax: Double, 
     params: PMap): Unit = throwContextException()
 
+  // Curves
+  def curves(cType: CurveType, nVertices: Seq[Int], wrap: PatchWrap, params: PMap): Unit =
+    throwContextException()
+    
   // General objects
   def objectInstance(handle: ObjectHandle): Unit = throwContextException()
   def procedural(name: String, args: Seq[Any], bound: BoundBox): Unit = throwContextException()
   def geometry(name: String, params: PMap): Unit = throwContextException()
+  def readArchive(name: String): Unit = throwContextException()
 
   // Map-making
   def makeTexture(pictureName: String, textureName: String, sWrap: String, tWrap: String, filter: FilterFunc,
@@ -488,6 +497,12 @@ class Ri {
     params: Any*): Unit =
     ctx.value foreach (_.torus(majorRadius, minorRadius, phiMin, phiMax, thetaMax, extractParams(params: _*)))
 
+  // Curves
+  def Curves(cType: CurveType, nVertices: Seq[Int], wrap: PatchWrap, params: PMap): Unit =
+    ctx.value foreach (_.curves(cType, nVertices, wrap, params))
+  def Curves(cType: CurveType, nVertices: Seq[Int], wrap: PatchWrap, params: Any*): Unit =
+    ctx.value foreach (_.curves(cType, nVertices, wrap, extractParams(params: _*)))
+  
   // General objects
   def ObjectInstance(handle: ObjectHandle): Unit = ctx.value foreach (_.objectInstance(handle))
   def Procedural(name: String, args: Seq[Any], bound: BoundBox): Unit =
@@ -500,6 +515,7 @@ class Ri {
     Procedural("DynamicLoad", Seq("\"%s\"" format(dsoName), "\"%s\"" format(args)), bound)
   def Geometry(name: String, params: PMap): Unit = ctx.value foreach (_.geometry(name, params))
   def Geometry(name: String, params: Any*): Unit = ctx.value foreach (_.geometry(name, extractParams(params: _*)))
+  def ReadArchive(name: String) = ctx.value foreach (_.readArchive(name))
 
   // Map-making
   def MakeTexture(pictureName: String, textureName: String, sWrap: String, tWrap: String, filter: FilterFunc,

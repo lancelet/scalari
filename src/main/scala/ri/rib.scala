@@ -271,7 +271,19 @@ trait RibQuadrics {
     wln("Torus [ %s %s %s %s %s ]%s" format(majorRadius, minorRadius, phiMin, phiMax, thetaMax, pMapToRib(params)))
 }
 
-trait RibGeometry extends RibPolygons with RibPatches with RibQuadrics {
+trait RibCurves {
+  self: RibContext =>
+  override def curves(cType: CurveType, nVertices: Seq[Int], wrap: PatchWrap, params: PMap): Unit =
+    wln("Curves \"%s\" %s \"%s\"%s" format(
+      cType.name, seqToRib(nVertices), wrap.name, pMapToRib(params)
+    ))
+}
+
+trait RibGeometry 
+extends RibPolygons 
+with RibPatches 
+with RibQuadrics 
+with RibCurves {
   self: RibContext =>
 }
 
@@ -288,6 +300,8 @@ trait RibGeneralObjects {
   override def procedural(name: String, args: Seq[Any], bound: BoundBox): Unit =
     wln("Procedural \"%s\" %s %s" format(name, seqToRib(args), boundToRib(bound)))
   override def geometry(name: String, params: PMap): Unit = wln("Geometry \"%s\"%s" format(name, pMapToRib(params)))
+  override def readArchive(name: String): Unit =
+    wln("ReadArchive \"%s\"" format (name))
 }
 
 trait RibMapMaking {
