@@ -13,3 +13,4 @@ project-old/plugins/src_managed
 .settings
 .history
 project/boot
+.cache
